@@ -5,6 +5,7 @@ class Play extends Phaser.Scene{
     preload(){
         // load images and tile sprites
         this.load.image('rocket',    './assets/rocket.png');
+        this.load.image('rocket2',   './assets/rocket2.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
         // loads spritesheet
@@ -25,14 +26,19 @@ class Play extends Phaser.Scene{
         this.add.rectangle(game.config.width - borderUIsize, 0, borderUIsize, game.config.height, 0xFFFFFF).setOrigin(0,0);
 
         // add rocket (p1)
-
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUIsize - borderPadding, 'rocket').setOrigin(0.5,0);
+        this.p1Rocket = new Rocket(this, game.config.width/2 - 15, game.config.height - borderUIsize - borderPadding, 'rocket').setOrigin(0.5,0);
         
+        //add rocket (p2)
+        this.p2Rocket = new Rocket(this, game.config.width/2 + 15, game.config.height - borderUIsize - borderPadding, 'rocket2').setOrigin(0.5,0)
+
         //definte keys
-        keyF     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyR     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyLEFT  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyA     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyE     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
         // add spaceships (x3)
         this.ship01 = new Spaceship(this, game.config.width + borderUIsize*6, borderUIsize*4, 'spaceship', 0, 30).setOrigin(0,0);
@@ -44,7 +50,7 @@ class Play extends Phaser.Scene{
             key: 'explode', 
             frames: this.anims.generateFrameNumbers('explosion', {start:0, end:9, first:0}), 
             frameRate: 30
-        });
+        });  
 
         //initialize score
         this.p1Score = 0;
@@ -88,11 +94,15 @@ class Play extends Phaser.Scene{
         }
 
         this.starfield.tilePositionX -= 4;
+
         if(!this.gameOver){
             this.p1Rocket.update();
+            this.p2Rocket.update();
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
+
+
         }
         // check collisions 
         if(this.checkCollision(this.p1Rocket, this.ship03)){
@@ -140,3 +150,8 @@ class Play extends Phaser.Scene{
         this.sound.play('sfx_explosion');
     }
 }
+ 
+
+
+
+

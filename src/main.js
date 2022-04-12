@@ -12,4 +12,5 @@ let borderUIsize = game.config.height/15;
 let borderPadding = borderUIsize/3;
 
 // reserve keyboard vars
-let keyF, keyR, keyLEFT, keyRIGHT;
+let keySPACE, keyR, keyLEFT, keyRIGHT;
+let keyA, keyD, keyE;
