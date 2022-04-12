@@ -9,7 +9,17 @@ class Play extends Phaser.Scene{
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
         // loads spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame:0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/explosion.png', {
+            frameWidth: 64,
+            frameHeight: 32,
+            startFrame:0,
+            endFrame: 9});
+        this.load.atlas('altShips', './assets/altShips.png', './assets/Altshipanim.json');
+       /*this.load.spritesheet('altShip', './assets/altShips.png',{
+            frameWidth: 63, 
+            frameHeight: 32, 
+            startFrame: 0, 
+            endFrame:1});*/
     }
 
     
@@ -51,6 +61,29 @@ class Play extends Phaser.Scene{
             frames: this.anims.generateFrameNumbers('explosion', {start:0, end:9, first:0}), 
             frameRate: 30
         });  
+
+        /*this.anims.create({
+            key: 'alt', 
+            frames: this.anims.generateFrameNumbers('altShip', {start: 0, end: 1, first: 0}), 
+            frameRate: 10, 
+            repeat: -1
+        });
+
+        this.ship01.anims.play('alt'); */
+
+        this.anims.create({
+            key: 'alt', 
+            frames: this.anims.generateFrameNames('altShips', {
+                prefix: 'ship',
+                start: 0, 
+                end: 1,
+                first: 0, 
+                zeroPad: 3}),
+                frameRate: 10,
+                repeat: -1
+        });
+
+        this.ship01.anims.play('alt');
 
         //initialize score
         this.p1Score = 0;
@@ -101,8 +134,6 @@ class Play extends Phaser.Scene{
             this.ship01.update();
             this.ship02.update();
             this.ship03.update();
-
-
         }
         // check collisions 
         if(this.checkCollision(this.p1Rocket, this.ship03)){
