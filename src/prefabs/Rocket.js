@@ -7,7 +7,6 @@ class Rocket extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
 
         this.isFiring  = false;
-        //this.isFiring2 = false;
         this.moveSpeed = 2;
 
         //rocket sound
@@ -16,9 +15,6 @@ class Rocket extends Phaser.GameObjects.Sprite{
         this.left = leftMove;
         this.right = rightMove;
         this.Fire = fire;
-
-
-        
 
     }
 
@@ -60,7 +56,6 @@ class Rocket extends Phaser.GameObjects.Sprite{
     //reset rocket to "ground"
     reset(){
         this.isFiring = false;
-       // this.isFiring2 = false;
         this.y = game.config.height - borderUIsize - borderPadding;    
     }
 

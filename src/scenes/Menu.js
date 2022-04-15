@@ -13,8 +13,8 @@ class Menu extends Phaser.Scene{
         let menuConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: 'red',
+            color: 'black',
             align: 'right',
             padding: {
                 top: 5,
@@ -26,34 +26,53 @@ class Menu extends Phaser.Scene{
         //show menu text
         this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - 
         borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use <- -> arrows to move & (F) to fire',
+        menuConfig.backgroundColor = 'yellow';
+        menuConfig.color = '#000';
+        this.add.text(game.config.width/2, game.config.height/2, '(P1) Use <- -> arrows to move & (F) to fire',
         menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + 
-        borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+        borderPadding, '(P2) use (A) & (D) to move & (E) to fire', menuConfig).setOrigin(0.5);
+        menuConfig.backgroundColor = 'blue';
+        menuConfig.color = 'white';
+        this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + borderPadding*5, 'Press (Space) for single-player', menuConfig).setOrigin(.5);
+        this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + borderPadding*9, 'Press (E) for two-player', menuConfig).setOrigin(.5);
+
 
         //define keys
-        keyLEFT  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT); 
+        keySPACE  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
     }
 
     update(){
-        if(Phaser.Input.Keyboard.JustDown(keyLEFT)){
+
+        if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             game.settings = {
                 spaceshipSpeed: 3, 
-                gameTimer: 60000
+                gameTimer: 60000,
+                coopMode: 0
             }
             this.sound.play('sfx_select');
             this.scene.start('playScene');
         }
-        if(Phaser.Input.Keyboard.JustDown(keyRIGHT)){
+        if(Phaser.Input.Keyboard.JustDown(keyE)){
             game.settings = {
                 spaceshipSpeed: 4, 
-                gameTimer: 45000
+                gameTimer: 60000, 
+                coopMode: 1
             }
             this.sound.play('sfx_select');
             this.scene.start('playScene');
         }
+
+       /* if(Phaser.Input.Keyboard.JustDown(keyE)){
+            game.settings = {
+                coopMode: true
+            }
+        }*/
+
+        
+
     }
 }
