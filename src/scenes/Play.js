@@ -26,7 +26,7 @@ class Play extends Phaser.Scene{
 
     create(){
         //place tile sprite
-        this.starfield = this.add.tileSprite(0,0,640,480, 'starfield').setOrigin(0,0);
+        this.starfield = this.add.tileSprite(0,0,750,600, 'starfield').setOrigin(0,0);
         // green UI background
         this.add.rectangle(0, borderUIsize + borderPadding, game.config.width, borderUIsize * 2, 0x00FF00).setOrigin(0,0);
         //white borders
@@ -89,6 +89,8 @@ class Play extends Phaser.Scene{
         //initialize score
         this.p1Score = 0;
 
+        
+
         // display score
         let scoreConfig = {
             fontFamily: 'Courier',
@@ -102,8 +104,22 @@ class Play extends Phaser.Scene{
             },
             fixedWidth: 100
         }
+
+        let timerConfig = {
+            fontFamily: 'Courier',
+            fontSize: '28px',
+            backgroundColor: 'red',
+            color: '#843605',
+            align: 'right',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+        }
+
         this.scoreLeft = this.add.text(borderUIsize + borderPadding, borderUIsize + borderPadding*2, this.p1Score, scoreConfig);
 
+        
         //GAME OVER flag
         this.gameOver = false;
 
@@ -116,6 +132,11 @@ class Play extends Phaser.Scene{
             scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+        //initialize time 
+        this.timeLeft = 60;
+        this.timer = this.add.text(borderUIsize + borderPadding *10, borderUIsize + borderPadding*2,'Time Left ' + this.timeLeft, timerConfig);
+
     }
 
     update(){
@@ -127,9 +148,12 @@ class Play extends Phaser.Scene{
             this.scene.start("menuScene");
         }
 
-        this.starfield.tilePositionX -= 4;
+        this.timer.text = 'Time Left ' + this.clock.getRemainingSeconds().toFixed(0);
+
+        this.starfield.tilePositionY -= 4;
 
         if(!this.gameOver){
+            
             this.p1Rocket.update();
             if(game.settings.coopMode == 1){
                 this.p2Rocket.update();
@@ -151,6 +175,7 @@ class Play extends Phaser.Scene{
             this.p1Rocket.reset();
             this.shipExplode(this.ship01);
         }
+
         if(game.settings.coopMode == 1){
         //check collisions for p2 
             if(this.checkCollision(this.p2Rocket, this.ship03)){
