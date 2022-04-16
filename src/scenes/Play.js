@@ -14,19 +14,18 @@ class Play extends Phaser.Scene{
             frameHeight: 32,
             startFrame:0,
             endFrame: 9});
-        this.load.atlas('altShips', './assets/altShips.png', './assets/Altshipanim.json');
-       /*this.load.spritesheet('altShip', './assets/altShips.png',{
-            frameWidth: 63, 
-            frameHeight: 32, 
+        this.load.spritesheet('ship', './assets/RegShips.png', {
+            frameWidth: 57, 
+            frameHeight: 50, 
             startFrame: 0, 
-            endFrame:1});*/
+            endFrame: 3});
     }
 
     
 
     create(){
         //place tile sprite
-        this.starfield = this.add.tileSprite(0,0,750,600, 'starfield').setOrigin(0,0);
+        this.starfield = this.add.tileSprite(0,0,640,480, 'starfield').setOrigin(0,0);
         // green UI background
         this.add.rectangle(0, borderUIsize + borderPadding, game.config.width, borderUIsize * 2, 0x00FF00).setOrigin(0,0);
         //white borders
@@ -46,13 +45,13 @@ class Play extends Phaser.Scene{
         keyE     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2 - 15, game.config.height - borderUIsize - borderPadding, 'rocket', null, keyLEFT, keyRIGHT, keySPACE).setOrigin(0.5,0).setScale(2);
+        this.p1Rocket = new Rocket(this, game.config.width/2 - 15, game.config.height - borderUIsize - borderPadding, 'rocket', null, keyLEFT, keyRIGHT, keySPACE).setOrigin(0.5,0);
         //add rocket (p2) if 2 player is selected
         if(game.settings.coopMode == 1){
-            this.p2Rocket = new Rocket(this, game.config.width/2 + 15, game.config.height - borderUIsize - borderPadding, 'rocket2', null, keyA, keyD, keyE).setOrigin(0.5,0).setScale(2);
+            this.p2Rocket = new Rocket(this, game.config.width/2 + 15, game.config.height - borderUIsize - borderPadding, 'rocket2', null, keyA, keyD, keyE).setOrigin(0.5,0);
         }    
         // add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUIsize*6, borderUIsize*4, 'spaceship', 0, 30).setOrigin(0,0);
+        this.ship01 = new Spaceship(this, game.config.width + borderUIsize*6, borderUIsize*4, 'ship', 0, 30).setOrigin(0,0);
         this.ship02 = new Spaceship(this, game.config.width + borderUIsize*3, borderUIsize*5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUIsize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
         
@@ -63,28 +62,16 @@ class Play extends Phaser.Scene{
             frameRate: 30
         });  
 
-        /*this.anims.create({
-            key: 'alt', 
-            frames: this.anims.generateFrameNumbers('altShip', {start: 0, end: 1, first: 0}), 
+        this.anims.create({
+            key: 'ships', 
+            frames: this.anims.generateFrameNumbers('ship', {start: 0, end: 3, first: 0}), 
             frameRate: 10, 
             repeat: -1
         });
 
-        this.ship01.anims.play('alt'); */
-
-        this.anims.create({
-            key: 'alt', 
-            frames: this.anims.generateFrameNames('altShips', {
-                prefix: 'ship',
-                start: 0, 
-                end: 1,
-                first: 0, 
-                zeroPad: 3}),
-                frameRate: 10,
-                repeat: -1
-        });
-
-        this.ship01.anims.play('alt');
+        this.ship01.anims.play('ships');
+        this.ship02.anims.play('ships');
+        this.ship03.anims.play('ships');
 
         //initialize score
         this.p1Score = 0;
@@ -94,7 +81,7 @@ class Play extends Phaser.Scene{
         // display score
         let scoreConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '24px',
             backgroundColor: '#F3B141',
             color: '#843605',
             align: 'right',
@@ -107,7 +94,7 @@ class Play extends Phaser.Scene{
 
         let timerConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '24px',
             backgroundColor: 'red',
             color: '#843605',
             align: 'right',
@@ -135,7 +122,7 @@ class Play extends Phaser.Scene{
 
         //initialize time 
         this.timeLeft = 60;
-        this.timer = this.add.text(borderUIsize + borderPadding *10, borderUIsize + borderPadding*2,'Time Left ' + this.timeLeft, timerConfig);
+        this.timer = this.add.text(borderUIsize + borderPadding *35, borderUIsize + borderPadding*2,'Time Left ' + this.timeLeft, timerConfig);
 
     }
 

@@ -12,7 +12,7 @@ class Menu extends Phaser.Scene{
     create(){
         let menuConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '24px',
             backgroundColor: 'red',
             color: 'black',
             align: 'right',
@@ -65,14 +65,6 @@ class Menu extends Phaser.Scene{
             this.sound.play('sfx_select');
             this.scene.start('playScene');
         }
-
-       /* if(Phaser.Input.Keyboard.JustDown(keyE)){
-            game.settings = {
-                coopMode: true
-            }
-        }*/
-
-        
-
+     
     }
 }
