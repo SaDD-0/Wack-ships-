@@ -6,17 +6,17 @@ class Play extends Phaser.Scene{
         // load images and tile sprites
         this.load.image('rocket',    './assets/rocket.png');
         this.load.image('rocket2',   './assets/rocket2.png');
-        this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
+        this.load.image('starfield2', './assets/starfield2.png');
         // loads spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {
-            frameWidth: 57,
-            frameHeight: 50,
+            frameWidth: 114,
+            frameHeight: 100,
             startFrame:0,
             endFrame: 9});
         this.load.spritesheet('ship', './assets/RegShips.png', {
-            frameWidth: 57, 
-            frameHeight: 50, 
+            frameWidth: 114, 
+            frameHeight: 100, 
             startFrame: 0, 
             endFrame: 3});
     }
@@ -25,14 +25,15 @@ class Play extends Phaser.Scene{
 
     create(){
         //place tile sprite
-        this.starfield = this.add.tileSprite(0,0,640,480, 'starfield').setOrigin(0,0);
+        this.starfield = this.add.tileSprite(0,0,game.config.width,game.config.height, 'starfield').setOrigin(0,0);
+        this.starfield2 = this.add.tileSprite(0,0,game.config.width,game.config.height, 'starfield2').setOrigin(0,0);
         // green UI background
-        this.add.rectangle(0, borderUIsize + borderPadding, game.config.width, borderUIsize * 2, 0x00FF00).setOrigin(0,0);
+       // this.add.rectangle(0, borderUIsize + borderPadding, game.config.width, borderUIsize * 2, 0x00FF00).setOrigin(0,0);
         //white borders
-        this.add.rectangle(0, 0, game.config.width, borderUIsize, 0xFFFFFF).setOrigin(0,0);
-        this.add.rectangle(0, game.config.height - borderUIsize, game.config.width, borderUIsize, 0xFFFFFF).setOrigin(0,0);
-        this.add.rectangle(0, 0, borderUIsize, game.config.height, 0xFFFFFF).setOrigin(0,0);
-        this.add.rectangle(game.config.width - borderUIsize, 0, borderUIsize, game.config.height, 0xFFFFFF).setOrigin(0,0);
+        //this.add.rectangle(0, 0, game.config.width, borderUIsize, 0xFFFFFF).setOrigin(0,0);
+        //this.add.rectangle(0, game.config.height - borderUIsize, game.config.width, borderUIsize, 0xFFFFFF).setOrigin(0,0);
+        //this.add.rectangle(0, 0, borderUIsize, game.config.height, 0xFFFFFF).setOrigin(0,0);
+        //this.add.rectangle(game.config.width - borderUIsize, 0, borderUIsize, game.config.height, 0xFFFFFF).setOrigin(0,0);
 
        
         //definte keys
@@ -46,14 +47,16 @@ class Play extends Phaser.Scene{
         
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2 - 15, game.config.height - borderUIsize - borderPadding, 'rocket', null, keyLEFT, keyRIGHT, keySPACE).setOrigin(0.5,0);
+        
         //add rocket (p2) if 2 player is selected
         if(game.settings.coopMode == 1){
             this.p2Rocket = new Rocket(this, game.config.width/2 + 15, game.config.height - borderUIsize - borderPadding, 'rocket2', null, keyA, keyD, keyE).setOrigin(0.5,0);
         }    
         // add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width + borderUIsize*6, borderUIsize*4, 'ship', 0, 30).setOrigin(0,0);
-        this.ship02 = new Spaceship(this, game.config.width + borderUIsize*3, borderUIsize*5 + borderPadding * 2, 'spaceship', 0, 20).setOrigin(0,0);
-        this.ship03 = new Spaceship(this, game.config.width, borderUIsize*6 + borderPadding*4, 'spaceship', 0, 10).setOrigin(0,0);
+        
+        this.ship01 = new Spaceship(this, game.config.width, borderUIsize*2, 'ship', 0, 30).setOrigin(0,0);
+        this.ship02 = new Spaceship(this, game.config.width, borderUIsize*5, 'spaceship', 0, 20).setOrigin(0,0);
+        this.ship03 = new Spaceship(this, game.config.width, borderUIsize*8, 'spaceship', 0, 10).setOrigin(0,0);
         
         //animation config
         this.anims.create({
@@ -104,7 +107,7 @@ class Play extends Phaser.Scene{
             },
         }
 
-        this.scoreLeft = this.add.text(borderUIsize + borderPadding, borderUIsize + borderPadding*2, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text(borderUIsize + borderPadding, borderPadding, this.p1Score, scoreConfig);
 
         
         //GAME OVER flag
@@ -121,8 +124,8 @@ class Play extends Phaser.Scene{
         }, null, this);
 
         //initialize time 
-        this.timeLeft = 60;
-        this.timer = this.add.text(borderUIsize + borderPadding *35, borderUIsize + borderPadding*2,'Time Left ' + this.timeLeft, timerConfig);
+        this.timeLeft;
+        this.timer = this.add.text(borderUIsize + borderPadding *35, borderPadding,'Time Left ' + this.timeLeft, timerConfig);
 
     }
 
@@ -137,7 +140,8 @@ class Play extends Phaser.Scene{
 
         this.timer.text = 'Time Left ' + this.clock.getRemainingSeconds().toFixed(0);
 
-        this.starfield.tilePositionY -= 4;
+        this.starfield.tilePositionX -= 2;
+        this.starfield2.tilePositionX -= 20;
 
         if(!this.gameOver){
             
