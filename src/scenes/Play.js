@@ -19,6 +19,11 @@ class Play extends Phaser.Scene{
             frameHeight: 100, 
             startFrame: 0, 
             endFrame: 3});
+        this.load.spritesheet('speship', './assets/SpeShip.png', {
+            frameWidth: 92, 
+            frameHeight: 66, 
+            startFrame: 0, 
+            endFrame: 3});
     }
 
     
@@ -54,9 +59,9 @@ class Play extends Phaser.Scene{
         }    
         // add spaceships (x3)
         
-        this.ship01 = new Spaceship(this, game.config.width, borderUIsize*2, 'ship', 0, 30).setOrigin(0,0);
-        this.ship02 = new Spaceship(this, game.config.width, borderUIsize*5, 'spaceship', 0, 20).setOrigin(0,0);
-        this.ship03 = new Spaceship(this, game.config.width, borderUIsize*8, 'spaceship', 0, 10).setOrigin(0,0);
+        this.ship01 = new Spaceship(this, game.config.width, borderUIsize*2, 'speship', 0, 30, true).setOrigin(0,0);
+        this.ship02 = new Spaceship(this, game.config.width, borderUIsize*5, 'ship', 0, 20, false).setOrigin(0,0);
+        this.ship03 = new Spaceship(this, game.config.width, borderUIsize*8, 'ship', 0, 10, false).setOrigin(0,0);
         
         //animation config
         this.anims.create({
@@ -72,7 +77,14 @@ class Play extends Phaser.Scene{
             repeat: -1
         });
 
-        this.ship01.anims.play('ships');
+        this.anims.create({
+            key: 'specialShip', 
+            frames: this.anims.generateFrameNumbers('speship', {start: 0, end: 3, first: 0}), 
+            frameRate: 10, 
+            repeat: -1
+        });
+
+        this.ship01.anims.play('specialShip');
         this.ship02.anims.play('ships');
         this.ship03.anims.play('ships');
 
@@ -126,6 +138,8 @@ class Play extends Phaser.Scene{
         //initialize time 
         this.timeLeft;
         this.timer = this.add.text(borderUIsize + borderPadding *35, borderPadding,'Time Left ' + this.timeLeft, timerConfig);
+        
+        
 
     }
 
@@ -139,6 +153,8 @@ class Play extends Phaser.Scene{
         }
 
         this.timer.text = 'Time Left ' + this.clock.getRemainingSeconds().toFixed(0);
+
+
 
         this.starfield.tilePositionX -= 2;
         this.starfield2.tilePositionX -= 20;
@@ -208,8 +224,16 @@ class Play extends Phaser.Scene{
             ship.alpha = 1;
             boom.destroy();
         });
-        //score add and repaint
-        this.p1Score += ship.points;
+        //score add and time
+        if(ship.special){
+            this.p1Score += ship.points * 3;
+            this.clock.delay += ship.points * 100;
+        }
+        else{
+           this.p1Score += ship.points;
+           this.clock.delay += ship.points * 100; 
+        }
+        
         this.scoreLeft.text = this.p1Score;
 
         //play explosion sound
