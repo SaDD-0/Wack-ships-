@@ -36,6 +36,8 @@ class Play extends Phaser.Scene{
             scoreConfig).setOrigin(0.5);
             this.gameOver = true;
         }, null, this);
+
+
         //place tile sprite
         this.starfield = this.add.tileSprite(0,0,game.config.width,game.config.height, 'starfield').setOrigin(0,0);
         this.starfield2 = this.add.tileSprite(0,0,game.config.width,game.config.height, 'starfield2').setOrigin(0,0);
@@ -61,9 +63,9 @@ class Play extends Phaser.Scene{
         }    
         
         // add spaceships (x3)
-        this.ship01 = new Spaceship(this, game.config.width, borderUIsize*2, 'speship', 0, 30, true).setOrigin(0,0);
-        this.ship02 = new Spaceship(this, game.config.width, borderUIsize*5, 'ship', 0, 20, false).setOrigin(0,0);
-        this.ship03 = new Spaceship(this, game.config.width, borderUIsize*8, 'ship', 0, 10, false).setOrigin(0,0);
+        this.ship01 = new Spaceship(this, game.config.width*.3, borderUIsize*2, 'speship', 0, 30, true).setOrigin(0,0);
+        this.ship02 = new Spaceship(this, game.config.width*.2, borderUIsize*5, 'ship', 0, 20, false).setOrigin(0,0);
+        this.ship03 = new Spaceship(this, game.config.width*.1, borderUIsize*8, 'ship', 0, 10, false).setOrigin(0,0);
         
         //animation config
         this.anims.create({
@@ -86,15 +88,10 @@ class Play extends Phaser.Scene{
             repeat: -1
         });
 
-
         //animate ships 
         this.ship01.anims.play('specialShip');
         this.ship02.anims.play('ships');
         this.ship03.anims.play('ships');
-
-        
-
-        
 
         // display score
         let scoreConfig = {
@@ -126,25 +123,18 @@ class Play extends Phaser.Scene{
         //add score to screen 
         this.scoreLeft = this.add.text(borderUIsize + borderPadding, borderPadding- 9,'P1 Score ' + this.p1Score, scoreConfig);
 
-
+        // add scoring for player two 
         if(game.settings.coopMode == 1){
             this.p2Score = 0;
             console.log(this.p2Score);
             this.scoreRight = this.add.text(borderUIsize + borderPadding *17, borderPadding -9,'P2 Score ' + this.p2Score, scoreConfig);
         }
         //initialize time 
-        this.timeLeft;
-        this.timer = this.add.text(borderUIsize + borderPadding *35, borderPadding -9,'Time Left ' + this.timeLeft, timerConfig);
+        //this.timeLeft;
+        this.timer = this.add.text(borderUIsize + borderPadding *35, borderPadding -9,'Time Left ' + this.clock.getRemainingSeconds().toFixed(0), timerConfig);
         
         //GAME OVER flag
         this.gameOver = false;
-
-        
-
-        
-        
-        
-
     }
 
     update(){

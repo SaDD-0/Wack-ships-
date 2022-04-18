@@ -6,12 +6,15 @@ class Rocket extends Phaser.GameObjects.Sprite{
         // add object to existiting scene
         scene.add.existing(this);
 
+        //firing state
         this.isFiring  = false;
+        //movement speed of rocket
         this.moveSpeed = 2;
 
         //rocket sound
         this.sfxRocket = scene.sound.add('sfx_rocket');
-
+        
+        // assign keys 
         this.left = leftMove;
         this.right = rightMove;
         this.Fire = fire;
@@ -50,7 +53,7 @@ class Rocket extends Phaser.GameObjects.Sprite{
 
         // reset on miss
         if(this.y <= borderUIsize){
-            this.Time.delay -= 5000; 
+            this.Time.delay -= 5000; // time if you miss 
             this.reset();
         }
     }
