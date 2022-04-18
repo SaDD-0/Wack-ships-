@@ -130,7 +130,6 @@ class Play extends Phaser.Scene{
             this.scoreRight = this.add.text(borderUIsize + borderPadding *17, borderPadding -9,'P2 Score ' + this.p2Score, scoreConfig);
         }
         //initialize time 
-        //this.timeLeft;
         this.timer = this.add.text(borderUIsize + borderPadding *35, borderPadding -9,'Time Left ' + this.clock.getRemainingSeconds().toFixed(0), timerConfig);
         
         //GAME OVER flag
