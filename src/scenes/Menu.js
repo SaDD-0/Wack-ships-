@@ -24,17 +24,17 @@ class Menu extends Phaser.Scene{
         }
 
         //show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*10, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*10, ' GALABE ', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = 'yellow';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2- borderUIsize - borderPadding*6, '(P1) Use <- -> arrows to move & (Space) to fire', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2- borderUIsize - borderPadding*6, ' (P1) Use <- -> arrows to move & (Space) to fire ', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*2, '(P2) use (A) & (D) to move & (E) to fire', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*2, ' (P2) use (A) & (D) to move & (E) to fire ', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = 'blue';
         menuConfig.color = 'white';
-        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*2, 'Press (Space) for single-player', menuConfig).setOrigin(.5);
-        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*6, 'Press (E) for two-player', menuConfig).setOrigin(.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*2, ' Press (Space) for single-player ', menuConfig).setOrigin(.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*6, ' Press (E) for two-player ', menuConfig).setOrigin(.5);
         menuConfig.backgroundColor = 'purple';
         menuConfig.align = 'center';
         this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*10,' Destroying ships rewards more points \n and time the further up they are', menuConfig).setOrigin(0.5);
