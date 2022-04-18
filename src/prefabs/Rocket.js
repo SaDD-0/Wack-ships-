@@ -1,6 +1,6 @@
 //Rocket prefab 
 class Rocket extends Phaser.GameObjects.Sprite{
-    constructor(scene, x, y, texture, frame, leftMove, rightMove, fire){
+    constructor(scene, x, y, texture, frame, leftMove, rightMove, fire, time){
         super(scene, x, y, texture, frame);
 
         // add object to existiting scene
@@ -15,6 +15,7 @@ class Rocket extends Phaser.GameObjects.Sprite{
         this.left = leftMove;
         this.right = rightMove;
         this.Fire = fire;
+        this.Time = time;
 
     }
 
@@ -49,6 +50,7 @@ class Rocket extends Phaser.GameObjects.Sprite{
 
         // reset on miss
         if(this.y <= borderUIsize){
+            this.Time.delay -= 5000; 
             this.reset();
         }
     }

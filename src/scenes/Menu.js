@@ -24,21 +24,21 @@ class Menu extends Phaser.Scene{
         }
 
         //show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - 
-        borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*10, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = 'yellow';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2, '(P1) Use <- -> arrows to move & (Space) to fire',
-        menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2- borderUIsize - borderPadding*6, '(P1) Use <- -> arrows to move & (Space) to fire', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
-        this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + 
-        borderPadding, '(P2) use (A) & (D) to move & (E) to fire', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize - borderPadding*2, '(P2) use (A) & (D) to move & (E) to fire', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = 'blue';
         menuConfig.color = 'white';
-        this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + borderPadding*5, 'Press (Space) for single-player', menuConfig).setOrigin(.5);
-        this.add.text(game.config.width/2, game.config.height/2 + borderUIsize + borderPadding*9, 'Press (E) for two-player', menuConfig).setOrigin(.5);
-
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*2, 'Press (Space) for single-player', menuConfig).setOrigin(.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*6, 'Press (E) for two-player', menuConfig).setOrigin(.5);
+        menuConfig.backgroundColor = 'purple';
+        menuConfig.align = 'center';
+        this.add.text(game.config.width/2, game.config.height/2 - borderUIsize + borderPadding*10,' Destroying ships rewards more points \n and time the further up they are', menuConfig).setOrigin(0.5);
+                                                                                                   
 
         //define keys
         keySPACE  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -46,7 +46,7 @@ class Menu extends Phaser.Scene{
     }
 
     update(){
-
+        // Settings for single Player 
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             game.settings = {
                 spaceshipSpeed: 3, 
@@ -56,6 +56,7 @@ class Menu extends Phaser.Scene{
             this.sound.play('sfx_select');
             this.scene.start('playScene');
         }
+        // Settings for two-player
         if(Phaser.Input.Keyboard.JustDown(keyE)){
             game.settings = {
                 spaceshipSpeed: 4, 
