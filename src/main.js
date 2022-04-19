@@ -16,7 +16,6 @@ let keySPACE, keyR, keyLEFT, keyRIGHT;
 let keyA, keyD, keyE;
 
 /* 
-Name: William Morales 
 Project Title: GALABE (Wanabe Galaga, I based the ship designs on the Galaga ships)
 Date: 4/17/2022
 Time to Complete: I'll say about 10-20 hours, wasn't keeping much track
